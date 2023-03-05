@@ -10,6 +10,7 @@ const props = defineProps({
 
 const { peek, pictureId, solved } = toRefs(props.card);
 
+// style override for solved or peeked cards
 const styleOverride = computed(() => {
   if (solved.value) {
     return {

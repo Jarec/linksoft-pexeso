@@ -4,8 +4,6 @@ import { computed, onMounted, ref } from "vue";
 import { useWindowSize } from "@vueuse/core";
 
 const { width, height } = useWindowSize();
-console.log("width: ", width);
-console.log("height: ", height);
 const adjustedWidth = computed(
   () => Math.min(width.value-25, height.value-125) + "px"
 );
@@ -41,6 +39,7 @@ function reset() {
       .map((i) => i.val);
   const generatedCards = [];
   for (let pictureKey of pictureKeys) {
+    // add first picture from set
     let pictureCard = {
       key: crypto.randomUUID(),
       pictureKey: pictureKey,
@@ -48,6 +47,7 @@ function reset() {
       solved: false,
       peek: false,
     };
+    // add matching second picture
     generatedCards.push(pictureCard, {
       ...pictureCard,
       pictureId: pictureKey + "_2",
@@ -63,12 +63,14 @@ function peek(card) {
     return;
   }
 
+  // when we are already showing two cards then next peek will hide them
   if (peekedCards.value.length >= 2) {
     cards.value.forEach((i) => (i.peek = false));
   }
 
   card.peek = true;
 
+  // if we peek two matching cards by pictureKey then mark them as solved
   if (
     peekedCards.value.length === 2 &&
     peekedCards.value[0].pictureKey === peekedCards.value[1].pictureKey
