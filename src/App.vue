@@ -111,7 +111,7 @@ onMounted(() => reset());
 .main {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-gap: 10px;
+  grid-gap: 6px;
 }
 
 .control {
