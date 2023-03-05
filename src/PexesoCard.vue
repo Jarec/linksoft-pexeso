@@ -19,7 +19,7 @@ const styleOverride = computed(() => {
     };
   } else if (peek.value) {
     return {
-      "background-image": `url("${pictureId.value}.jpg")`,
+      "background-image": `url("${pictureId.value}m.jpg")`,
       "background-size": "cover",
       "border-color": "red",
       transition: "all 0.4s ease",
@@ -41,7 +41,7 @@ const styleOverride = computed(() => {
   aspect-ratio: 1;
   border: 2px solid black;
   border-radius: 5px;
-  background-image: url("background.jpg");
+  background-image: url("./linksoft-pexeso/background.jpg");
   background-size: cover;
 }
 </style>
