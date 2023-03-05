@@ -41,7 +41,7 @@ const styleOverride = computed(() => {
   aspect-ratio: 1;
   border: 2px solid black;
   border-radius: 5px;
-  background-image: url("./linksoft-pexeso/background.jpg");
+  background-image: url("/linksoft-pexeso/background.jpg");
   background-size: cover;
 }
 </style>
