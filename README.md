@@ -1,4 +1,4 @@
-# vue-pexeso
+# linksoft-pexeso
 
 Fun project to demonstrate Vue
 
