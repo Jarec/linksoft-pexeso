@@ -5,10 +5,11 @@ import { useWindowSize } from "@vueuse/core";
 
 const { width, height } = useWindowSize();
 const adjustedWidth = computed(
-  () => Math.min(width.value - 20, height.value - 120) + "px"
+  () => Math.min(width.value - 20, height.value - 130) + "px"
 );
 
 const cards = ref([]);
+const attempts = ref(0);
 
 function reset() {
   const pictureKeys = [
@@ -55,6 +56,7 @@ function reset() {
     });
   }
   cards.value = shuffleArray(generatedCards);
+  attempts.value = 0;
 }
 const peekedCards = computed(() => cards.value.filter((i) => i.peek));
 
@@ -68,6 +70,7 @@ function peek(card) {
     cards.value.forEach((i) => (i.peek = false));
   }
 
+  attempts.value += 1;
   card.peek = true;
 
   // if we peek two matching cards by pictureKey then mark them as solved
@@ -84,8 +87,13 @@ onMounted(() => reset());
 
 <template>
   <div class="app">
-    <div class="control">
-      <button @click="reset" style="text-align: right">Reset</button>
+    <div class="header">
+      <div class="control">
+        <button @click="reset" style="text-align: right">Reset</button>
+      </div>
+      <div class="score">
+        <span class="attempts">Score: {{ attempts }}</span>
+      </div>
     </div>
     <div class="main">
       <pexeso-card
@@ -97,8 +105,13 @@ onMounted(() => reset());
       </pexeso-card>
     </div>
     <div class="footer">
-      <hr />
-      © 2023 LinkSoft
+      <div>
+        <a
+          href="https://www.linksoft.eu/?utm_source=referral&utm_medium=logo&utm_campaign=pexeso"
+        >
+          <img src="/linksoft_logo.png" alt="LinkSoft" class="logo" />
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -123,6 +136,24 @@ onMounted(() => reset());
 
 .footer {
   text-align: center;
+}
+
+.logo {
+  height: 50px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.score {
+  font-family: "Open Sans";
+  color: #113359;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 5px;
 }
 
 .control button {
