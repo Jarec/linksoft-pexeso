@@ -5,11 +5,14 @@ import { useWindowSize } from "@vueuse/core";
 
 const { width, height } = useWindowSize();
 const adjustedWidth = computed(
-  () => Math.min(width.value - 20, height.value - 130) + "px"
+  () => Math.min(width.value - 20, height.value - 100) + "px"
 );
 
 const cards = ref([]);
 const attempts = ref(0);
+
+// score as number of attempts halved and floored
+const score = computed(() => Math.floor(attempts.value / 2));
 
 function reset() {
   const pictureKeys = [
@@ -91,8 +94,15 @@ onMounted(() => reset());
       <div class="control">
         <button @click="reset" style="text-align: right">Reset</button>
       </div>
+      <div>
+        <a
+          href="https://www.linksoft.eu/?utm_source=referral&utm_medium=logo&utm_campaign=pexeso"
+        >
+          <img src="/linksoft_logo.png" alt="LinkSoft" class="logo" />
+        </a>
+      </div>
       <div class="score">
-        <span class="attempts">Score: {{ attempts }}</span>
+        <span class="attempts">Score: {{ score }}</span>
       </div>
     </div>
     <div class="main">
@@ -103,15 +113,6 @@ onMounted(() => reset());
         @click="() => peek(card)"
       >
       </pexeso-card>
-    </div>
-    <div class="footer">
-      <div>
-        <a
-          href="https://www.linksoft.eu/?utm_source=referral&utm_medium=logo&utm_campaign=pexeso"
-        >
-          <img src="/linksoft_logo.png" alt="LinkSoft" class="logo" />
-        </a>
-      </div>
     </div>
   </div>
 </template>
@@ -132,10 +133,6 @@ onMounted(() => reset());
 .control {
   margin-bottom: 10px;
   text-align: right;
-}
-
-.footer {
-  text-align: center;
 }
 
 .logo {
