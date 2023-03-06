@@ -149,7 +149,7 @@ onMounted(() => reset());
 }
 
 .score {
-  font-family: "Open Sans";
+  font-family: "Open Sans",serif;
   color: #113359;
   font-size: 16px;
   font-weight: 600;
