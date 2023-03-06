@@ -14,14 +14,13 @@ const { peek, pictureId, solved } = toRefs(props.card);
 const styleOverride = computed(() => {
   if (solved.value) {
     return {
-      "background-image": `url("${pictureId.value}.jpg")`,
-      "background-size": "cover",
+      "background-image": `url("${pictureId.value}m.jpg")`,
       "border-color": "green",
+      transform: "rotateY(180deg)",
     };
   } else if (peek.value) {
     return {
       "background-image": `url("${pictureId.value}m.jpg")`,
-      "background-size": "cover",
       "border-color": "red",
       transition: "all 0.4s ease",
       transform: "rotateY(180deg)",
