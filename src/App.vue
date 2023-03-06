@@ -5,7 +5,7 @@ import { useWindowSize } from "@vueuse/core";
 
 const { width, height } = useWindowSize();
 const adjustedWidth = computed(
-  () => Math.min(width.value-25, height.value-125) + "px"
+  () => Math.min(width.value - 20, height.value - 120) + "px"
 );
 
 const cards = ref([]);
