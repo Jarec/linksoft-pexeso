@@ -1,26 +1,32 @@
 <script setup>
-import { computed, toRefs } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
-  card: {
-    type: Object,
+  peek: {
+    type: Boolean,
+    required: true,
+  },
+  solved: {
+    type: Boolean,
+    required: true,
+  },
+  pictureId: {
+    type: String,
     required: true,
   },
 });
 
-const { peek, pictureId, solved } = toRefs(props.card);
-
 // style override for solved or peeked cards
 const styleOverride = computed(() => {
-  if (solved.value) {
+  if (props.solved) {
     return {
-      "background-image": `url("${pictureId.value}m.jpg")`,
+      "background-image": `url("${props.pictureId}m.jpg")`,
       "border-color": "green",
       transform: "rotateY(180deg)",
     };
-  } else if (peek.value) {
+  } else if (props.peek) {
     return {
-      "background-image": `url("${pictureId.value}m.jpg")`,
+      "background-image": `url("${props.pictureId}m.jpg")`,
       "border-color": "red",
       transition: "all 0.4s ease",
       transform: "rotateY(180deg)",
