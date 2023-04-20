@@ -15,6 +15,7 @@
       <input type="text" placeholder="Enter game code" v-model="gameCode" />
       <button :disabled="joinDisabled" @click="joinGame">Join Game</button>
     </div>
+    <div v-if="error" class="error">{{ error }}</div>
   </div>
 </template>
 
@@ -25,11 +26,12 @@ import { useRouter } from "vue-router";
 const playerId = ref(null);
 const name = ref("");
 const gameCode = ref("");
-const startDisabled = computed(() => !name.value || gameCode.value);
+const startDisabled = computed(() => !name.value);
 const joinDisabled = computed(() => !gameCode.value || !name.value);
 
 const props = defineProps({
   pexesoId: { type: String, default: null },
+  error: { type: String, default: null },
 });
 
 const savePlayer = () => {
@@ -90,5 +92,9 @@ onMounted(() => {
 
 .logo {
   height: 50px;
+}
+
+.error {
+  color: red;
 }
 </style>

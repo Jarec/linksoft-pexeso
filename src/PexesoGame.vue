@@ -70,15 +70,21 @@ onMounted(async () => {
   const player = JSON.parse(localStorage.getItem("player"));
   let gameData;
 
-  // if pexesoId is not set, start new game, otherwise join existing game
-  if (props.pexesoId == null) {
-    let { data } = await startNewGame(player);
-    gameData = data;
-    gameId.value = data.pexesoId;
-  } else {
-    let { data } = await joinGame(player, props.pexesoId);
-    gameData = data;
-    gameId.value = props.pexesoId;
+  try {
+    // if pexesoId is not set, start new game, otherwise join existing game
+    if (props.pexesoId == null) {
+      let { data } = await startNewGame(player);
+      gameData = data;
+      gameId.value = data.pexesoId;
+    } else {
+      let { data } = await joinGame(player, props.pexesoId);
+      gameData = data;
+      gameId.value = props.pexesoId;
+    }
+  } catch (error) {
+    console.log(error);
+    await router.push({ path: "/", query: { error: "Game not found" } });
+    return;
   }
 
   // set initial game data

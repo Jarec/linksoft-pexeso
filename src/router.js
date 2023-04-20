@@ -6,7 +6,7 @@ const routes = [
   {
     path: "/",
     component: MainMenu,
-    props: ({ query: { pexesoId } }) => ({ pexesoId }),
+    props: ({ query: { pexesoId, error } }) => ({ pexesoId, error }),
   },
   { path: "/pexeso", component: PexesoGame },
   { path: "/pexeso/:pexesoId", component: PexesoGame, props: true },
