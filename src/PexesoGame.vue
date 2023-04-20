@@ -48,7 +48,7 @@ const updateCard = (card) => {
   }
 };
 
-let initialCopyButton = " Copy ";
+let initialCopyButton = "Join game link";
 const copyButton = ref(initialCopyButton);
 
 const copyGameId = () => {
@@ -60,7 +60,7 @@ const copyGameId = () => {
   navigator.clipboard.writeText(
     window.location.href.substring(0, hashIndex) + "#" + fullPath
   );
-  copyButton.value = "Copied";
+  copyButton.value = " Link Copied ";
   setTimeout(() => {
     copyButton.value = initialCopyButton;
   }, 1000);
@@ -105,8 +105,7 @@ onMounted(async () => {
   <div class="app">
     <div class="header">
       <div class="control">
-        {{ gameId }}
-        <button @click="copyGameId" style="text-align: center; width: 80px">
+        <button @click="copyGameId" style="text-align: center; width: 130px">
           {{ copyButton }}
         </button>
       </div>
