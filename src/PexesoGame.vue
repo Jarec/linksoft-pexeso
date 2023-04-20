@@ -32,7 +32,7 @@ const peek = (card) => {
 
 const { width, height } = useWindowSize();
 const adjustedWidth = computed(
-  () => Math.min(width.value - 20, height.value - 100) + "px"
+  () => Math.min(width.value - 20, height.value - 120) + "px"
 );
 
 const updateCard = (card) => {
@@ -91,9 +91,10 @@ onMounted(async () => {
     "message",
     (event) => {
       const data = JSON.parse(event.data);
-      console.log("data", data);
       data.cardUpdates?.forEach((card) => updateCard(card));
-      scores.value = data.scores;
+      scores.value = data.scores?.sort(
+        (first, second) => second.score - first.score
+      );
       currentPlayer.value = data.nextPlayer;
     }
   );
@@ -116,9 +117,18 @@ onMounted(async () => {
           <img src="/linksoft_logo.png" alt="LinkSoft" class="logo" />
         </a>
       </div>
-      <div class="score">
-        <span class="attempts">Player: {{ currentPlayer?.name }}</span>
+      <div class="player">
+        <span>Player: {{ currentPlayer?.name }}</span>
       </div>
+    </div>
+    <div class="score">
+      <span
+        v-for="(score, i) in scores"
+        :key="score.playerId"
+        style="padding-right: 40px"
+      >
+        {{ i + 1 }}. {{ score.name }}: {{ score.score }}/{{ score.moves }}
+      </span>
     </div>
     <div class="main">
       <pexeso-card
@@ -163,6 +173,14 @@ onMounted(async () => {
 }
 
 .score {
+  font-family: "Open Sans", serif;
+  color: #113359;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 5px;
+}
+
+.player {
   font-family: "Open Sans", serif;
   color: #113359;
   font-size: 16px;
